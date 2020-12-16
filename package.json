@@ -1,0 +1,25 @@
+{
+  "name": "hamian",
+  "version": "0.0.1",
+  "description": "telegram wallet ",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vahidHossaini/hamian.git"
+  },
+  "keywords": [
+    "eos",
+    "telos",
+    "wallet",
+    "telegram"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vahidHossaini/hamian/issues"
+  },
+  "homepage": "https://github.com/vahidHossaini/hamian#readme"
+}
