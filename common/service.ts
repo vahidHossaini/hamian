@@ -8,6 +8,9 @@ export default class Service
         if (this.readyState == 4 && this.status == 200) {
             res(JSON.parse(this.responseText)) 
         }
+        if (this.readyState == 4 && this.status != 200) {
+            rej(JSON.parse(this.responseText)) 
+        }
       };
       xhttp.open("GET",url, true);
       xhttp.send();
@@ -20,6 +23,9 @@ export default class Service
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             res(JSON.parse(this.responseText)) 
+        }
+        if (this.readyState == 4 && this.status != 200) {
+            rej(JSON.parse(this.responseText)) 
         }
       };
       xhttp.open("POST",url, true);

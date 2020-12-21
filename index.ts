@@ -6,7 +6,7 @@ import Service from "./common/service";
 export default class Hamian
 {
     config:HamianConfig;
-    profile:HamianProfile;
+    profile!:HamianProfile;
     constructor(appId:string,serverUrl:string,botName:string)
     {
         this.config = new HamianConfig({appId,serverUrl,botName});
@@ -41,15 +41,17 @@ export default class Hamian
     {
         
         var modal_hamian = document.getElementById("hamianModal");
-        modal_hamian.style.display = "none";  
+        if(modal_hamian!=null)
+            modal_hamian.style.display = "none";  
     }
     show()
     {
         
         var modal_hamian = document.getElementById("hamianModal");
-        modal_hamian.style.display = "block";  
+        if(modal_hamian!=null)
+            modal_hamian.style.display = "block";  
     }
-    getprofile():HamianProfile
+    getprofile() 
     { 
         var profile:HamianProfile=Storage.load('profile');
         console.log('-----')
@@ -62,6 +64,7 @@ export default class Hamian
         {
             this.logout();
         }
+        return null
          
     }
     getRandom()
@@ -86,9 +89,10 @@ export default class Hamian
                 res(data)
             })
             .catch((exp:any)=>{
-                rej()
+                rej(exp)
             })
             var content = document.getElementById('hamianContent')
+            if(content)
             content.innerHTML=`
                 <button onclick="window.open('`+link+`')">
                     Go To Hamian
@@ -115,16 +119,17 @@ export default class Hamian
                 res(data)
             })
             .catch((exp:any)=>{
-                rej()
+                rej(exp)
             })
             var content = document.getElementById('hamianContent')
-            content.innerHTML=`
-                <button onclick="window.open('`+link+`')">
-                    Go To Hamian
-                </button> 
-                <div id="timer">
-                </div>
-            `;
+            if(content)
+                content.innerHTML=`
+                    <button onclick="window.open('`+link+`')">
+                        Go To Hamian
+                    </button> 
+                    <div id="timer">
+                    </div>
+                `;
             this.show();
         })
     }
