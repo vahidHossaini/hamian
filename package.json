@@ -1,9 +1,10 @@
 {
   "name": "hamian",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "telegram wallet ",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc --build tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
