@@ -9,7 +9,10 @@ export default class Service
             res(JSON.parse(this.responseText)) 
         }
         if (this.readyState == 4 && this.status != 200) {
-            rej(JSON.parse(this.responseText)) 
+          var err={}
+          if(this.responseText)
+            err=JSON.parse(this.responseText);
+            rej(err); 
         }
       };
       xhttp.open("GET",url, true);
@@ -25,7 +28,10 @@ export default class Service
             res(JSON.parse(this.responseText)) 
         }
         if (this.readyState == 4 && this.status != 200) {
-            rej(JSON.parse(this.responseText)) 
+          var err={}
+          if(this.responseText)
+            err=JSON.parse(this.responseText);
+            rej(err); 
         }
       };
       xhttp.open("POST",url, true);

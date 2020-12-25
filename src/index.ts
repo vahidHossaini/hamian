@@ -3,6 +3,9 @@ import HamianProfile from "./models/hamianProfile";
 import Storage from './common/storage'
 import style from './common/style'
 import Service from "./common/service";
+
+export {HamianConfig,HamianProfile};
+
 export default class Hamian
 {
     config:HamianConfig;
@@ -24,16 +27,13 @@ export default class Hamian
 
         var element=document.createElement('div');
         element.innerHTML=`
-            <div id="hamianModal" class="hamain-modal" style="z-index: 99999999;"> 
-            <div class="hamian-modal-content">
-                <span class="hamian-Close"
-                style="cursor: pointer;"
-                 onclick="(()=>{var modal_hamian = document.getElementById('hamianModal');modal_hamian.style.display = 'none';})()">&times;</span>
-                <div id="hamianContent" style="margin-top: 30px;">
-                </div>
-            </div> 
+        <div id="hamianModal" class="hamain-modal" style="z-index: 99999999;"> 
+        <div class="hamian-modal-container">
+            <div class="hamian-close" onclick="(()=>{var modal_hamian = document.getElementById('hamianModal');modal_hamian.style.display = 'none';})()"></div>
             
-            </div>
+            <div class="hamian-modal-content" id="hamianContent"/>
+        </div>
+        </div> 
         `;
         document.body.appendChild(element)
     }
@@ -75,11 +75,11 @@ export default class Hamian
     {
         Storage.save('profile',null);
     }
-    runTransaction(walletId,account,name,actor,permission,transactinData)
+    runTransaction(walletId,transaction)
     {
         return new Promise(async(res,rej)=>{ 
             var url=this.config.serverUrl+'api/transactionRequest';
-            var data=await Service.post(url,{walletId,account,name,actor,permission,data:transactinData})
+            var data=await Service.post(url,{walletId,transaction})
             var link='tg://resolve?domain='+this.config.botName+'&start=1_'+this.config.appId+'_'+data.response.data; 
  
             url=this.config.serverUrl+ 'api/submitTransaction?appId='+this.config.appId+'&id='+data.response.data;
@@ -94,11 +94,14 @@ export default class Hamian
             var content = document.getElementById('hamianContent')
             if(content)
             content.innerHTML=`
-                <button onclick="window.open('`+link+`')">
-                    Go To Hamian
-                </button> 
-                <div id="timer">
-                </div>
+            <div class="hamian-logo"></div>
+            <div class="mamian-title">Confirm</div>
+            <div class="mamian-description">Check the transaction data which will send to your telegram</div>
+            <button class="hamian-open-button" onclick="window.open('` + link + `')">
+                Send Transaction For Confirmation
+            </button> 
+            <div id="timer">
+            </div>
             `;
             this.show();
         })
@@ -107,7 +110,12 @@ export default class Hamian
     login()
     {
         return new Promise((res,rej)=>{
-            
+            var profile = Storage.load('profile');
+            if(profile)
+            {
+                res(profile);
+                return;
+            }
             var random=this.getRandom(); 
             var link='tg://resolve?domain='+this.config.botName+'&start=0_'+this.config.appId+'_'+random;
             var url=this.config.serverUrl+ 'api/loginWithToken?appId='+this.config.appId+'&random='+random;
@@ -124,11 +132,13 @@ export default class Hamian
             var content = document.getElementById('hamianContent')
             if(content)
                 content.innerHTML=`
-                    <button onclick="window.open('`+link+`')">
-                        Go To Hamian
-                    </button> 
-                    <div id="timer">
-                    </div>
+                <div class="hamian-logo"></div>
+                <div class="mamian-title">Login</div>
+                <button class="hamian-open-button" onclick="window.open('` + link + `')">
+                    Open Hamian Bot In Telegram
+                </button> 
+                <div id="timer">
+                </div>
                 `;
             this.show();
         })
