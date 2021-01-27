@@ -1,6 +1,6 @@
 {
   "name": "hamian",
-  "version": "0.0.10",
+  "version": "0.0.16",
   "description": "telegram wallet ",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
@@ -29,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/vahidHossaini/hamian/issues"
   },
-  "homepage": "https://github.com/vahidHossaini/hamian#readme"
+  "homepage": "https://github.com/vahidHossaini/hamian#readme",
+  "dependencies": {
+    "qrcode": "^1.4.4"
+  }
 }
